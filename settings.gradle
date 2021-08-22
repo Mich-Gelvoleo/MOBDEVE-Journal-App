@@ -1,0 +1,2 @@
+rootProject.name = "MOBDEVE Journal App"
+include ':app'
