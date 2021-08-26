@@ -1,4 +1,4 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.model;
 
 public class Entry {
     private String title, caption;

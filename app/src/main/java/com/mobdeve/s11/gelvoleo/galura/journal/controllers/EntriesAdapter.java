@@ -1,8 +1,11 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
+import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

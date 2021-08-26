@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Minimalist">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controllers.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EntryDetailsActivity">
+        <activity android:name=".controllers.EntryDetailsActivity">
         </activity>
-        <activity android:name=".AddPostActivity">
+        <activity android:name=".controllers.AddPostActivity">
         </activity>
         <meta-data
             android:name="preloaded_fonts"
