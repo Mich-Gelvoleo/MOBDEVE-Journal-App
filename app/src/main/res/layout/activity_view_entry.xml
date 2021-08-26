@@ -47,9 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/oswald_light"
-        android:text="#genshin_impact"
         app:layout_constraintStart_toEndOf="@+id/tv_view_tags"
-        app:layout_constraintTop_toBottomOf="@+id/tv_view_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_view_title"
+        tools:text="#text_here" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_view_edit"
@@ -72,10 +72,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/oswald"
-        android:text="24 AUG 2021"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="19 JUL 2014" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

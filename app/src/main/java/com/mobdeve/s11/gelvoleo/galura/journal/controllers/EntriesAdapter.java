@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntriesAdapter extends RecyclerView.Adapter<EntriesViewHolder> {
-    private ArrayList<Entry> entries;
+    private List<Entry> entries;
 
-    public EntriesAdapter(ArrayList<Entry> entries){
+    public EntriesAdapter(List<Entry> entries){
         this.entries = entries;
     }
 
@@ -35,12 +36,15 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull EntriesViewHolder holder, int position){
-        holder.setTvDate(entries.get(position).getCreatedAt().toStringFull());
-        holder.setTvTitle(entries.get(position).getTitle());
-        holder.setTvCaption(entries.get(position).getCaption());
+        Entry entry = entries.get(position);
+        holder.bind(entry);
     }
 
     public int getItemCount(){
         return this.entries.size();
+    }
+
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
     }
 }

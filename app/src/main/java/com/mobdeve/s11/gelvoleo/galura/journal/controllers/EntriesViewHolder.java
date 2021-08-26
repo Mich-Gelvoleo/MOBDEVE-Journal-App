@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
+import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.utils.CustomDate;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class EntriesViewHolder extends RecyclerView.ViewHolder {
+
+    private Entry mEntry;
+
     private TextView tvDate;
     private TextView tvTitle;
     private TextView tvCaption;
@@ -26,22 +33,20 @@ public class EntriesViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(view ->{
             Intent intent = new Intent(itemView.getContext(), EntryDetailsActivity.class);
-            intent.putExtra("Date", tvDate.getText());
-            intent.putExtra("Title", tvTitle.getText());
-            intent.putExtra("Caption", tvCaption.getText());
+            intent.putExtra("ENTRY", mEntry);
 
             itemView.getContext().startActivity(intent);
         });
 
     }
 
-    public void setTvDate(String date){ this.tvDate.setText(date); }
+    public void bind(Entry entry) {
+        mEntry = entry;
+        tvTitle.setText(mEntry.getTitle());
+        tvCaption.setText(mEntry.getCaption());
 
-    public void setTvTitle(String title){
-        this.tvTitle.setText(title);
-    }
-
-    public void setTvCaption(String caption){
-        this.tvCaption.setText(caption);
+        Date date = mEntry.getDate();
+        String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date).toUpperCase();
+        tvDate.setText(formattedDate);
     }
 }

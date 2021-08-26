@@ -1,6 +1,7 @@
 package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
 import com.mobdeve.s11.gelvoleo.galura.journal.utils.CustomDate;
 import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
@@ -35,40 +37,40 @@ public class AddPostActivity extends AppCompatActivity {
         this.etCaption = findViewById(R.id.et_add_caption);
         this.fabSave = findViewById(R.id.fab_add_save);
 
-        this.fabSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
+        Context context = this;
 
-                picker = new DatePickerDialog(AddPostActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayh) {
-                                etDate.setText(day + "/" + (month + 1) + "/" + year);
-                            }
-                        }, year, month, day);
-                picker.show();
+        this.fabSave.setOnClickListener(view -> {
 
-                if(etTitle.getText().toString().isEmpty()){
-                    Toast.makeText(AddPostActivity.this, "Your Journal Title", Toast.LENGTH_SHORT).show();
-                }
+            final Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
 
-                if(etCaption.getText().toString().isEmpty()){
-                    Toast.makeText(AddPostActivity.this, "Let's get typing!", Toast.LENGTH_SHORT).show();
-                }
+//            picker = new DatePickerDialog(AddPostActivity.this,
+//                    new DatePickerDialog.OnDateSetListener() {
+//                        @Override
+//                        public void onDateSet(DatePicker view, int year, int month, int dayh) {
+//                            etDate.setText(day + "/" + (month + 1) + "/" + year);
+//                        }
+//                    }, year, month, day);
+//            picker.show();
 
-                Entry entry = new Entry(
-                        new CustomDate(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)),
-                        etTitle.getText().toString(),
-                        etCaption.getText().toString());
-
-                assert  DataHelper.getData() != null;
-                DataHelper.getData().add(0, entry);
-                finish();
+            if(etTitle.getText().toString().isEmpty()){
+                Toast.makeText(AddPostActivity.this, "Title Required", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            /*if(etCaption.getText().toString().isEmpty()){
+                Toast.makeText(AddPostActivity.this, "Let's get typing!", Toast.LENGTH_SHORT).show();
+            }*/
+
+            Entry entry = new Entry(
+                    etTitle.getText().toString(),
+                    etCaption.getText().toString()
+            );
+
+            EntryLab.get(this).addEntry(entry);
+            finish();
         });
     }
 }

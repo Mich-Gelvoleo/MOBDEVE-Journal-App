@@ -11,7 +11,7 @@ public class DataHelper {
     public DataHelper(){
         entries = new ArrayList<>();
 
-        entries.add(new Entry(
+        /*entries.add(new Entry(
                 new CustomDate(2021, 7, 24),
                 "Mili",
                 "Nobody is born a fighter. There isn't enough space for all of us"
@@ -27,7 +27,7 @@ public class DataHelper {
                 new CustomDate(2021, 11, 17),
                 "The First Hunter",
                 "Dear oh dear, what was it? The Hunt, the blood, or the horrible dream?"
-        ));
+        ));*/
     }
 
     public static DataHelper getInstance() {

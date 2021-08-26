@@ -8,15 +8,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
 import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
+import org.w3c.dom.EntityReference;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Entry> entries;
+    private List<Entry> entries;
     private RecyclerView rvEntries;
     private FloatingActionButton fabAdd;
     private EntriesAdapter entriesAdapter;
@@ -33,13 +37,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        entriesAdapter.notifyDataSetChanged();
+        updateUI();
     }
 
-    public void initComponents(){
-        DataHelper helper = DataHelper.getInstance();
-        this.entries = DataHelper.getData();
-        entriesAdapter = new EntriesAdapter(this.entries);
+    private void initComponents(){
+        entries = EntryLab.get(this).getEntries();
+        entriesAdapter = new EntriesAdapter(entries);
 
         this.fabAdd = findViewById(R.id.fab_main_add);
 
@@ -52,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
         this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvEntries.setAdapter(entriesAdapter);
 
+    }
+
+    private void updateUI() {
+        EntryLab entryLab = EntryLab.get(this);
+        entries = entryLab.getEntries();
+
+        if (entriesAdapter == null) {
+            entriesAdapter = new EntriesAdapter(entries);
+            rvEntries.setAdapter(entriesAdapter);
+        } else {
+            entriesAdapter.setEntries(entries);
+            entriesAdapter.notifyDataSetChanged();
+        }
     }
 }
