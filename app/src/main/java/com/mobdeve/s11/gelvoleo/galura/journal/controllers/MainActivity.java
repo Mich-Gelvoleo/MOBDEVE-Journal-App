@@ -1,4 +1,4 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
+import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
+import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
 import java.util.ArrayList;
 

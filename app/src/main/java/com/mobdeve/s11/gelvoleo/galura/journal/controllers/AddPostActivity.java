@@ -1,10 +1,14 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
+import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
+import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,6 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.utils;
+
+import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 
 import java.util.ArrayList;
 

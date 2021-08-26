@@ -1,7 +1,9 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

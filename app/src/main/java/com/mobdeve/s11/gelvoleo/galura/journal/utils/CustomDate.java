@@ -1,4 +1,4 @@
-package com.mobdeve.s11.gelvoleo.galura.journal;
+package com.mobdeve.s11.gelvoleo.galura.journal.utils;
 
 import java.util.Calendar;
 
