@@ -26,7 +26,7 @@ public class EntryCursorWrapper extends CursorWrapper {
         entry.setTitle(title);
         entry.setCaption(caption);
         entry.setDate(new Date(date));
-        entry.setArchived(isArchived);
+        entry.setArchived(isArchived != 0);
         entry.setFilename(filename);
 
         return entry;

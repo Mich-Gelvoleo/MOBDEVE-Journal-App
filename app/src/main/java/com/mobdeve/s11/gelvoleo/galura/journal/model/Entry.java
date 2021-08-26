@@ -9,7 +9,7 @@ public class Entry {
     private String title;
     private String caption;
     private Date date;
-    private int archived;
+    private boolean archived;
     private String filename;
 
     public Entry(String title, String caption) {
@@ -22,7 +22,7 @@ public class Entry {
         this.title = title;
         this.caption = caption;
         this.date = date;
-        this.archived = 0;
+        this.archived = false;
     }
 
     public Entry(UUID uuid) {
@@ -49,11 +49,11 @@ public class Entry {
         this.date = date;
     }
 
-    public int isArchived() {
+    public boolean isArchived() {
         return archived;
     }
 
-    public void setArchived(int archived) {
+    public void setArchived(boolean archived) {
         this.archived = archived;
     }
 
