@@ -35,6 +35,7 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull EntriesViewHolder holder, int position){
+        holder.setTvDate(entries.get(position).getCreatedAt().toStringFull());
         holder.setTvTitle(entries.get(position).getTitle());
         holder.setTvCaption(entries.get(position).getCaption());
     }
