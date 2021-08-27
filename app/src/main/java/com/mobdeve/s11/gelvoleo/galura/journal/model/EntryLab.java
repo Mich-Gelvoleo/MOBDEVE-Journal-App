@@ -36,6 +36,7 @@ public class EntryLab {
         database.insert(NAME, null, values);
     }
 
+    //TODO: add clause that fetches only unarchived entries
     public List<Entry> getEntries() {
         List<Entry> entries = new ArrayList<>();
         EntryCursorWrapper cursor = queryEntries(null, null);
