@@ -17,6 +17,7 @@
         android:fontFamily="@font/oswald"
         android:hint="Your Journal Title"
         android:inputType="textMultiLine|text"
+        android:textColor="#BE1600"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

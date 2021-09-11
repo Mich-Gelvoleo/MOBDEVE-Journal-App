@@ -13,6 +13,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/oswald"
         android:text="Random Title"
+        android:textColor="#BE1600"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
