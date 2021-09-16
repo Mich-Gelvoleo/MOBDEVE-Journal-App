@@ -54,6 +54,7 @@ public class AddPostActivity extends AppCompatActivity {
     private TextView tvDate;
     private EditText etTitle;
     private EditText etCaption;
+    private EditText etTags;
     private FloatingActionButton fabSave;
     private FloatingActionButton fabChooseImage;
     private FloatingActionButton fabCamera;
@@ -78,6 +79,7 @@ public class AddPostActivity extends AppCompatActivity {
         this.fabChooseImage = findViewById(R.id.fab_add_file);
         this.ivImage = findViewById(R.id.iv_add_photo);
         this.fabCamera = findViewById(R.id.fab_add_camera);
+        this.etTags = findViewById(R.id.et_add_tags);
 
         final Calendar calendar = Calendar.getInstance();
 
@@ -134,7 +136,8 @@ public class AddPostActivity extends AppCompatActivity {
                     etTitle.getText().toString(),
                     etCaption.getText().toString(),
                     mDatePicked,
-                    path
+                    path,
+                    etTags.getText().toString()
             );
 
             EntryLab.get(this).addEntry(entry);

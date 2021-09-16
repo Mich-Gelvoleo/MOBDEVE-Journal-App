@@ -14,6 +14,16 @@ public class Entry implements Serializable, Comparable<Entry> {
     private boolean archived;
     private String filename;
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    private String tags = "";
+
     public Entry(String title, String caption) {
         this.id = UUID.randomUUID();
         this.title = title;
@@ -38,6 +48,16 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.date = date;
         this.archived = false;
         this.filename = filename;
+    }
+
+    public Entry(String title, String caption, Date date, String filename, String tags){
+        this.id = UUID.randomUUID();
+        this.title = title;
+        this.caption = caption;
+        this.date = date;
+        this.archived = false;
+        this.filename = filename;
+        this.tags = tags;
     }
 
     public Entry(UUID uuid) {

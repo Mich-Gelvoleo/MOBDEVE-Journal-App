@@ -21,6 +21,7 @@ public class EntryCursorWrapper extends CursorWrapper {
         long date = getLong(getColumnIndex(EntryTable.Cols.DATE));
         int isArchived = getInt(getColumnIndex(EntryTable.Cols.ARCHIVED));
         String filename = getString(getColumnIndex(EntryTable.Cols.FILENAME));
+        String tags = getString(getColumnIndex(EntryTable.Cols.TAGS));
 
         Entry entry = new Entry(UUID.fromString(uuidString));
         entry.setTitle(title);
@@ -28,6 +29,7 @@ public class EntryCursorWrapper extends CursorWrapper {
         entry.setDate(new Date(date));
         entry.setArchived(isArchived != 0);
         entry.setFilename(filename);
+        entry.setTags(tags);
 
         return entry;
     }

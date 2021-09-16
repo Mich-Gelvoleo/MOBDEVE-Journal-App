@@ -51,7 +51,7 @@ public class EntryDetailsActivity extends AppCompatActivity {
         tvDate.setText(formattedDate);
 
         this.tvTags = findViewById(R.id.tv_view_tags);
-        //TODO: set tags
+        tvTags.setText(mEntry.getTags());
 
         this.ivEntryImage = findViewById(R.id.iv_view_photo);
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());

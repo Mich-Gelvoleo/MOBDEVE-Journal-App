@@ -103,6 +103,7 @@ public class EntryLab {
         values.put(Cols.DATE, entry.getDate().getTime());
         values.put(Cols.ARCHIVED, entry.isArchived() ? 1 : 0);
         values.put(Cols.FILENAME, entry.getFilename());
+        values.put(Cols.TAGS, entry.getTags());
 
         return values;
     }
