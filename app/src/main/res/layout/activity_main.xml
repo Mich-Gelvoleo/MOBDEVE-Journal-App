@@ -39,6 +39,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/menu"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/main_toolbar"
                 app:layout_constraintStart_toStartOf="@id/main_toolbar"
                 app:layout_constraintTop_toTopOf="@id/main_toolbar" />
@@ -53,7 +54,7 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/filter"
                 android:scaleType="fitXY"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/main_toolbar"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,6 +66,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layoutDirection="rtl"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/main_toolbar"
                 app:layout_constraintEnd_toEndOf="@+id/main_toolbar"
                 app:layout_constraintStart_toStartOf="@+id/main_toolbar"
