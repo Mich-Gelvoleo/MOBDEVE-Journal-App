@@ -1,10 +1,11 @@
 package com.mobdeve.s11.gelvoleo.galura.journal.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.UUID;
 
-public class Entry implements Serializable {
+public class Entry implements Serializable, Comparable<Entry> {
 
     private UUID id;
     private String title;
@@ -79,4 +80,42 @@ public class Entry implements Serializable {
         return this.caption;
     }
 
+    @Override
+    public int compareTo(Entry e) {
+        if(this.getDate().before(e.getDate())){
+            return -1;
+        }else if(this.getDate().after(e.getDate())){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public static class Comparators{
+        public static Comparator<Entry> creationDate = new Comparator<Entry>() {
+            @Override
+            public int compare(Entry e1, Entry e2) {
+                if(e1.getDate().before(e2.getDate())){
+                    return -1;
+                }else if(e1.getDate().after(e2.getDate())){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        };
+
+        public static Comparator<Entry> recentDate = new Comparator<Entry>() {
+            @Override
+            public int compare(Entry e1, Entry e2) {
+                if(e2.getDate().before(e1.getDate())){
+                    return -1;
+                }else if(e2.getDate().after(e1.getDate())){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        };
+    }
 }

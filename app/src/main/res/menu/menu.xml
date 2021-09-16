@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_sort"
+        android:title="Sort entries"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="collapseActionView|always">
+        <menu>
+            <item android:id="@+id/menu_creationDate"
+                android:title="Creation Date"/>
+            <item android:id="@+id/menu_recentDate"
+                android:title="Recently Added"/>
+            <item android:id="@+id/menu_locationAZ"
+                android:title="Location A-Z"/>
+            <item android:id="@+id/menu_locationZA"
+                android:title="Location Z-A"/>
+        </menu>
+    </item>
+
     <item android:id="@+id/menu_search"
         android:title="@string/search_hint"
         android:icon="@drawable/ic_search"

@@ -21,6 +21,7 @@ import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvEntries;
     private FloatingActionButton fabAdd;
     private EntriesAdapter entriesAdapter;
-    private SearchView searchView;
-    private ImageButton filter;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -63,6 +62,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.menu_creationDate:
+                Collections.sort(entries, Entry.Comparators.creationDate);
+                this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                this.rvEntries.setAdapter(entriesAdapter);
+                return true;
+            case R.id.menu_recentDate:
+                Collections.sort(entries, Entry.Comparators.recentDate);
+                this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                this.rvEntries.setAdapter(entriesAdapter);
+                return true;
+        }
+        return true;
     }
 
 
