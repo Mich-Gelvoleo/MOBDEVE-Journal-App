@@ -31,6 +31,15 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.archived = false;
     }
 
+    public Entry(String title, String caption, Date date, String filename){
+        this.id = UUID.randomUUID();
+        this.title = title;
+        this.caption = caption;
+        this.date = date;
+        this.archived = false;
+        this.filename = filename;
+    }
+
     public Entry(UUID uuid) {
         this.id = uuid;
         this.date = new Date();
