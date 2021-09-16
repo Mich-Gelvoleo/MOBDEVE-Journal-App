@@ -1,46 +1,33 @@
 package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import android.app.DatePickerDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.FileUtils;
 import android.provider.MediaStore;
-import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
-import com.mobdeve.s11.gelvoleo.galura.journal.utils.CustomDate;
-import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,7 +43,7 @@ public class AddPostActivity extends AppCompatActivity {
     private EditText etCaption;
     private EditText etTags;
     private FloatingActionButton fabSave;
-    private FloatingActionButton fabChooseImage;
+    private FloatingActionButton fabRemovePhoto;
     private FloatingActionButton fabCamera;
     private ImageView ivImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -76,7 +63,7 @@ public class AddPostActivity extends AppCompatActivity {
         this.etTitle = findViewById(R.id.et_add_title);
         this.etCaption = findViewById(R.id.et_add_caption);
         this.fabSave = findViewById(R.id.fab_add_save);
-        this.fabChooseImage = findViewById(R.id.fab_add_file);
+        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
         this.ivImage = findViewById(R.id.iv_add_photo);
         this.fabCamera = findViewById(R.id.fab_add_camera);
         this.etTags = findViewById(R.id.et_add_tags);
@@ -108,10 +95,6 @@ public class AddPostActivity extends AppCompatActivity {
                 mDatePicked = calendar.getTime();
                 String date = sdf.format(calendar.getTime());
 
-                //month = month + 1;
-                //Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-                //String date = month + "/" + day + "/" + year;
-
                 tvDate.setText(date);
             }
         };
@@ -127,16 +110,12 @@ public class AddPostActivity extends AppCompatActivity {
                 galleryAddPic();
             }
 
-            /*if(etCaption.getText().toString().isEmpty()){
-                Toast.makeText(AddPostActivity.this, "Let's get typing!", Toast.LENGTH_SHORT).show();
-            }*/
-
-            String path = (photoFile == null) ? null : photoFile.getAbsolutePath();
+            mSelectedImagePath = (photoFile == null) ? null : photoFile.getAbsolutePath();
             Entry entry = new Entry(
                     etTitle.getText().toString(),
                     etCaption.getText().toString(),
                     mDatePicked,
-                    path,
+                    mSelectedImagePath,
                     etTags.getText().toString()
             );
 
@@ -146,6 +125,25 @@ public class AddPostActivity extends AppCompatActivity {
 
         fabCamera.setOnClickListener(view -> {
             dispatchTakePictureIntent();
+        });
+
+        fabRemovePhoto.setOnClickListener(view -> {
+            if (photoFile == null) {
+                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            File fdelete = new File(photoFile.getAbsolutePath());
+            ivImage.setImageBitmap(null);
+            if (fdelete.exists()) {
+                if (!fdelete.delete()) {
+                    Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+            }
+
+            mSelectedImagePath = null;
         });
     }
 
