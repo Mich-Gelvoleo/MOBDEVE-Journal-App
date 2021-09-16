@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddPostActivity extends AppCompatActivity {
     private static final String TAG = "AddPostActivity";
@@ -37,12 +38,16 @@ public class AddPostActivity extends AppCompatActivity {
     private FloatingActionButton fabSave;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    private Date mDatePicked = new Date();
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
 
         this.tvDate = findViewById(R.id.tv_add_date);
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
+        tvDate.setText(sdf.format(mDatePicked));
         this.etTitle = findViewById(R.id.et_add_title);
         this.etCaption = findViewById(R.id.et_add_caption);
         this.fabSave = findViewById(R.id.fab_add_save);
@@ -70,8 +75,8 @@ public class AddPostActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
                 calendar.set(year, month, day);
+                mDatePicked = calendar.getTime();
                 String date = sdf.format(calendar.getTime());
 
                 //month = month + 1;
@@ -95,7 +100,8 @@ public class AddPostActivity extends AppCompatActivity {
 
             Entry entry = new Entry(
                     etTitle.getText().toString(),
-                    etCaption.getText().toString()
+                    etCaption.getText().toString(),
+                    mDatePicked
             );
 
             EntryLab.get(this).addEntry(entry);
