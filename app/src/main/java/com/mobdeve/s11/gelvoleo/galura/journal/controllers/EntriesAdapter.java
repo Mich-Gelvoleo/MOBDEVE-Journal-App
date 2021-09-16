@@ -67,7 +67,7 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesViewHolder> impl
                 filteredList.addAll(entriesAll);
             } else{
                 for(Entry entry : entriesAll){
-                    if(entry.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())){
+                    if((entry.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())) || (entry.getTags().toLowerCase().contains(constraint.toString().toLowerCase()))){
                         filteredList.add(entry);
                     }
                 }
