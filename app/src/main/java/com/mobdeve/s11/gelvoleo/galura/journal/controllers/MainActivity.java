@@ -1,21 +1,23 @@
 package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
-import com.mobdeve.s11.gelvoleo.galura.journal.utils.DataHelper;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
-import org.w3c.dom.EntityReference;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,14 +26,19 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvEntries;
     private FloatingActionButton fabAdd;
     private EntriesAdapter entriesAdapter;
+    private SearchView searchView;
+    private ImageButton filter;
 
-
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initComponents();
+
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
