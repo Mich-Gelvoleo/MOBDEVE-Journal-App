@@ -62,7 +62,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     private Date mDatePicked = new Date();
     private String mSelectedImagePath = null;
-    private File photoFile;
+    private File photoFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -121,17 +121,20 @@ public class AddPostActivity extends AppCompatActivity {
                 return;
             }
 
-            galleryAddPic();
+            if (photoFile != null) {
+                galleryAddPic();
+            }
 
             /*if(etCaption.getText().toString().isEmpty()){
                 Toast.makeText(AddPostActivity.this, "Let's get typing!", Toast.LENGTH_SHORT).show();
             }*/
 
+            String path = (photoFile == null) ? null : photoFile.getAbsolutePath();
             Entry entry = new Entry(
                     etTitle.getText().toString(),
                     etCaption.getText().toString(),
                     mDatePicked,
-                    photoFile.getAbsolutePath()
+                    path
             );
 
             EntryLab.get(this).addEntry(entry);
