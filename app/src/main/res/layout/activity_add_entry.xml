@@ -121,6 +121,6 @@
         app:backgroundTint="#BE1600"
         app:layout_constraintBottom_toTopOf="@+id/fab_add_save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

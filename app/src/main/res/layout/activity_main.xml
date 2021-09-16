@@ -71,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/main_toolbar"
                 app:layout_constraintStart_toStartOf="@+id/main_toolbar"
                 app:layout_constraintTop_toTopOf="@id/main_toolbar"
-                app:searchIcon="@drawable/search" />
+                app:searchIcon="@drawable/ic_search" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
