@@ -24,17 +24,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                        <ImageView
+                            android:id="@+id/iv_entry_photo"
+                            android:layout_width="80dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/hotair_balloon"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/tv_entry_date"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
                             android:fontFamily="@font/oswald_light"
                             android:text="24 AUG 2021"
                             android:textColor="@color/black"
                             android:textSize="10sp"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_entry_photo"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -48,7 +62,7 @@
                             android:textColor="#BE1600"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_entry_photo"
                             app:layout_constraintTop_toBottomOf="@+id/tv_entry_date" />
 
                         <TextView
@@ -57,13 +71,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:ellipsize="end"
                             android:fontFamily="@font/oswald_light"
+                            android:maxLines="1"
                             android:text="The quick brown fox jumped over the lazy dog."
                             android:textSize="12sp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_entry_photo"
                             app:layout_constraintTop_toBottomOf="@+id/tv_entry_title" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

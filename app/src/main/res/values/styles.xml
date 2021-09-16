@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Minimalist" parent="Theme.AppCompat.Light">
+    <style name="Theme.Minimalist" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">#F1F1F1</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 </resources>
