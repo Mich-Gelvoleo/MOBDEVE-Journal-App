@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.nfc.FormatException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -52,6 +53,9 @@ public class AddPostActivity extends AppCompatActivity {
     private String mSelectedImagePath = null;
     private File photoFile = null;
 
+    private boolean forEdit = false;
+    private Entry mEntry = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -67,6 +71,11 @@ public class AddPostActivity extends AppCompatActivity {
         this.ivImage = findViewById(R.id.iv_add_photo);
         this.fabCamera = findViewById(R.id.fab_add_camera);
         this.etTags = findViewById(R.id.et_add_tags);
+
+        forEdit = getIntent().getBooleanExtra("FOR_EDIT", false);
+        if (forEdit) {
+            initializeEntryDetails();
+        }
 
         final Calendar calendar = Calendar.getInstance();
 
@@ -111,15 +120,32 @@ public class AddPostActivity extends AppCompatActivity {
             }
 
             mSelectedImagePath = (photoFile == null) ? null : photoFile.getAbsolutePath();
-            Entry entry = new Entry(
-                    etTitle.getText().toString(),
-                    etCaption.getText().toString(),
-                    mDatePicked,
-                    mSelectedImagePath,
-                    etTags.getText().toString()
-            );
 
-            EntryLab.get(this).addEntry(entry);
+
+            if (forEdit) {
+                mEntry.setTitle(etTitle.getText().toString());
+                mEntry.setCaption(etCaption.getText().toString());
+                mEntry.setDate(mDatePicked);
+                mEntry.setFilename(mSelectedImagePath);
+                mEntry.setTags(etTags.getText().toString());
+
+                EntryLab.get(this).updateEntry(mEntry);
+
+                Intent returnIntent = getIntent();
+                returnIntent.putExtra("RETURN_ENTRY", mEntry);
+                setResult(RESULT_OK, returnIntent);
+            } else {
+                Entry entry = new Entry(
+                        etTitle.getText().toString(),
+                        etCaption.getText().toString(),
+                        mDatePicked,
+                        mSelectedImagePath,
+                        etTags.getText().toString()
+                );
+
+                EntryLab.get(this).addEntry(entry);
+            }
+
             finish();
         });
 
@@ -132,7 +158,7 @@ public class AddPostActivity extends AppCompatActivity {
                 Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            
+
             File fdelete = new File(photoFile.getAbsolutePath());
             ivImage.setImageBitmap(null);
             if (fdelete.exists()) {
@@ -206,5 +232,23 @@ public class AddPostActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         mSelectedImagePath = image.getAbsolutePath();
         return image;
+    }
+
+    private void initializeEntryDetails() {
+        mEntry = (Entry) getIntent().getSerializableExtra("ENTRY");
+        etTitle.setText(mEntry.getTitle());
+
+        Date date = mEntry.getDate();
+        String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date);
+        mDatePicked = mEntry.getDate();
+        tvDate.setText(formattedDate);
+
+        etCaption.setText(mEntry.getCaption());
+        etTags.setText(mEntry.getTags());
+
+        photoFile = new File(mEntry.getFilename());
+
+        Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());
+        ivImage.setImageBitmap(takenImage);
     }
 }
