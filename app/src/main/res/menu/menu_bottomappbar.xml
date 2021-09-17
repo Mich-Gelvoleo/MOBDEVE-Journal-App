@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_bottom_delete"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="@color/black"
+        android:title="Delete Post"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_bottom_remove"
+        android:icon="@drawable/ic_remove_photo"
+        android:iconTint="@color/black"
+        android:title="Delete Photo"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_bottom_photo"
+        android:icon="@drawable/ic_camera"
+        android:iconTint="@color/black"
+        android:title="Take Photo"
+        app:showAsAction="always"
+        />
+</menu>

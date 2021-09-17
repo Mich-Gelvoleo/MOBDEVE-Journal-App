@@ -5,4 +5,8 @@
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetEnd">0dp</item>
     </style>
+
+    <style name="AppBarTheme" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">#BE1600</item>
+    </style>
 </resources>

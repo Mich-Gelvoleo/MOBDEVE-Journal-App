@@ -12,9 +12,12 @@ import android.nfc.FormatException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,9 +70,9 @@ public class AddPostActivity extends AppCompatActivity {
         this.etTitle = findViewById(R.id.et_add_title);
         this.etCaption = findViewById(R.id.et_add_caption);
         this.fabSave = findViewById(R.id.fab_add_save);
-        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
+/*        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);*/
         this.ivImage = findViewById(R.id.iv_add_photo);
-        this.fabCamera = findViewById(R.id.fab_add_camera);
+/*        this.fabCamera = findViewById(R.id.fab_add_camera);*/
         this.etTags = findViewById(R.id.et_add_tags);
 
         forEdit = getIntent().getBooleanExtra("FOR_EDIT", false);
@@ -149,11 +152,11 @@ public class AddPostActivity extends AppCompatActivity {
             finish();
         });
 
-        fabCamera.setOnClickListener(view -> {
+/*        fabCamera.setOnClickListener(view -> {
             dispatchTakePictureIntent();
-        });
+        });*/
 
-        fabRemovePhoto.setOnClickListener(view -> {
+/*        fabRemovePhoto.setOnClickListener(view -> {
             if (photoFile == null) {
                 Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
                 return;
@@ -170,7 +173,40 @@ public class AddPostActivity extends AppCompatActivity {
             }
 
             mSelectedImagePath = null;
-        });
+        });*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_bottomappbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.menu_bottom_photo:
+                dispatchTakePictureIntent();
+                return true;
+            case R.id.menu_bottom_remove:
+                if (photoFile == null) {
+                    Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                File fdelete = new File(photoFile.getAbsolutePath());
+                ivImage.setImageBitmap(null);
+                if (fdelete.exists()) {
+                    if (!fdelete.delete()) {
+                        Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+                }
+
+                mSelectedImagePath = null;
+                return true;
+        }
+        return true;
     }
 
     @Override
