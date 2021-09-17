@@ -26,7 +26,7 @@
 
     <item android:id="@+id/archive"
         android:title="Archive"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/ic_archive_dark"
         app:showAsAction="collapseActionView|always"/>
 
 </menu>

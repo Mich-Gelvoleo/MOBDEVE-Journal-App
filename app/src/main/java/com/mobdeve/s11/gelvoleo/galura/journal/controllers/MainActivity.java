@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvEntries;
     private FloatingActionButton fabAdd;
     private EntriesAdapter entriesAdapter;
+
+    private int viewArchived = 0;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -77,6 +81,19 @@ public class MainActivity extends AppCompatActivity {
                 this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 this.rvEntries.setAdapter(entriesAdapter);
                 return true;
+            case R.id.archive:
+                viewArchived = (viewArchived == 1) ? 0 : 1;
+
+                if (viewArchived == 1) {
+                    item.setIcon(getDrawable(R.drawable.ic_list_dark));
+                    fabAdd.setVisibility(View.GONE);
+                } else {
+                    item.setIcon(getDrawable(R.drawable.ic_archive_dark));
+                    fabAdd.setVisibility(View.VISIBLE);
+                }
+
+                updateUI();
+                return true;
         }
         return true;
     }
@@ -89,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
-        entries = EntryLab.get(this).getEntries();
+        entries = EntryLab.get(this).getEntries(viewArchived);
         entriesAdapter = new EntriesAdapter(entries);
 
         this.fabAdd = findViewById(R.id.fab_main_add);
@@ -107,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         EntryLab entryLab = EntryLab.get(this);
-        entries = entryLab.getEntries();
+        entries = entryLab.getEntries(viewArchived);
 
         if (entriesAdapter == null) {
             entriesAdapter = new EntriesAdapter(entries);

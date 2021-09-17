@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class EntryDetailsActivity extends AppCompatActivity {
     private TextView tvTags;
     private ImageView ivEntryImage;
     private FloatingActionButton fabEdit;
+    private FloatingActionButton fabDeletePermanently;
+    private FloatingActionButton fabRestore;
 
     private Entry mEntry;
 
@@ -45,12 +48,29 @@ public class EntryDetailsActivity extends AppCompatActivity {
 
         initView();
 
-        this.fabEdit = findViewById(R.id.fab_view_edit);
         fabEdit.setOnClickListener(view -> {
             Intent intent = new Intent(getBaseContext(), AddPostActivity.class);
             intent.putExtra("FOR_EDIT", true);
             intent.putExtra("ENTRY", mEntry);
             startActivityForResult(intent, EDIT_ENTRY);
+        });
+
+        fabDeletePermanently.setOnClickListener(view -> {
+            File fdelete = new File(mEntry.getFilename());
+            if (fdelete.exists()) {
+                boolean deleted = fdelete.delete();
+                Log.d("DELETED", "is deleted: " + deleted);
+            }
+
+            EntryLab.get(this).deleteEntry(mEntry);
+
+            finish();
+        });
+
+        fabRestore.setOnClickListener(view -> {
+            mEntry.setArchived(false);
+            EntryLab.get(this).updateEntry(mEntry);
+            finish();
         });
     }
 
@@ -72,6 +92,21 @@ public class EntryDetailsActivity extends AppCompatActivity {
         this.ivEntryImage = findViewById(R.id.iv_view_photo);
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());
         ivEntryImage.setImageBitmap(takenImage);
+
+        this.fabEdit = findViewById(R.id.fab_view_edit);
+        if (mEntry.isArchived()) {
+            fabEdit.setVisibility(View.GONE);
+        }
+
+        this.fabDeletePermanently = findViewById(R.id.fab_delete_permanent);
+        if (mEntry.isArchived()) {
+            fabDeletePermanently.setVisibility(View.VISIBLE);
+        }
+
+        this.fabRestore = findViewById(R.id.fab_restore);
+        if (mEntry.isArchived()) {
+            fabRestore.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

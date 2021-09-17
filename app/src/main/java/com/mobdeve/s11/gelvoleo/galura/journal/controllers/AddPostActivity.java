@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ public class AddPostActivity extends AppCompatActivity {
     private FloatingActionButton fabSave;
     private FloatingActionButton fabRemovePhoto;
     private FloatingActionButton fabCamera;
+    private FloatingActionButton fabArchive;
     private ImageView ivImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -70,10 +72,11 @@ public class AddPostActivity extends AppCompatActivity {
         this.etTitle = findViewById(R.id.et_add_title);
         this.etCaption = findViewById(R.id.et_add_caption);
         this.fabSave = findViewById(R.id.fab_add_save);
-/*        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);*/
+        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
         this.ivImage = findViewById(R.id.iv_add_photo);
-/*        this.fabCamera = findViewById(R.id.fab_add_camera);*/
+        this.fabCamera = findViewById(R.id.fab_add_camera);
         this.etTags = findViewById(R.id.et_add_tags);
+        this.fabArchive = findViewById(R.id.fab_archive);
 
         forEdit = getIntent().getBooleanExtra("FOR_EDIT", false);
         if (forEdit) {
@@ -152,11 +155,11 @@ public class AddPostActivity extends AppCompatActivity {
             finish();
         });
 
-/*        fabCamera.setOnClickListener(view -> {
+        fabCamera.setOnClickListener(view -> {
             dispatchTakePictureIntent();
-        });*/
+        });
 
-/*        fabRemovePhoto.setOnClickListener(view -> {
+        fabRemovePhoto.setOnClickListener(view -> {
             if (photoFile == null) {
                 Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
                 return;
@@ -173,14 +176,24 @@ public class AddPostActivity extends AppCompatActivity {
             }
 
             mSelectedImagePath = null;
-        });*/
-    }
+        });
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_bottomappbar, menu);
-        return super.onCreateOptionsMenu(menu);
+        fabArchive.setOnClickListener(view -> {
+            mEntry.setArchived(true);
+            EntryLab.get(this).updateEntry(mEntry);
+
+            Intent returnIntent = getIntent();
+            returnIntent.putExtra("RETURN_ENTRY", mEntry);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        });
     }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_bottomappbar, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -286,5 +299,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());
         ivImage.setImageBitmap(takenImage);
+
+        fabArchive.setVisibility(View.VISIBLE);
     }
 }

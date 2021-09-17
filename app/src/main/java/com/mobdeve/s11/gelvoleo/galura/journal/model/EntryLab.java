@@ -25,6 +25,14 @@ public class EntryLab {
         return sEntryLab;
     }
 
+    public void deleteEntry(Entry entry) {
+        database.delete(
+                EntryDbSchema.EntryTable.NAME,
+                EntryDbSchema.EntryTable.Cols.UUID + "=?",
+                new String[] {entry.getId().toString()}
+        );
+    }
+
     private EntryLab(Context context) {
         this.context = context.getApplicationContext();
         this.database = new EntriesDatabase(context)
@@ -37,9 +45,10 @@ public class EntryLab {
     }
 
     //TODO: add clause that fetches only unarchived entries
-    public List<Entry> getEntries() {
+    public List<Entry> getEntries(int isArchived) {
         List<Entry> entries = new ArrayList<>();
-        EntryCursorWrapper cursor = queryEntries(null, null);
+        String clause = Cols.ARCHIVED + " = " + isArchived;
+        EntryCursorWrapper cursor = queryEntries(clause, null);
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
