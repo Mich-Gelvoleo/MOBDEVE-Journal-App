@@ -47,12 +47,17 @@ public class AddPostActivity extends AppCompatActivity {
     private EditText etTitle;
     private EditText etCaption;
     private EditText etTags;
-    private FloatingActionButton fabSave;
-    private FloatingActionButton fabRemovePhoto;
-    private FloatingActionButton fabCamera;
-    private FloatingActionButton fabArchive;
     private ImageView ivImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private TextView tvArchive;
+    private TextView tvAddPhoto;
+    private TextView tvDeletePhoto;
+    private FloatingActionButton fabSave;
+
+/*  private FloatingActionButton fabArchive;
+    private FloatingActionButton fabRemovePhoto;
+    private FloatingActionButton fabCamera;*/
 
     private Date mDatePicked = new Date();
     private String mSelectedImagePath = null;
@@ -71,12 +76,17 @@ public class AddPostActivity extends AppCompatActivity {
         tvDate.setText(sdf.format(mDatePicked));
         this.etTitle = findViewById(R.id.et_add_title);
         this.etCaption = findViewById(R.id.et_add_caption);
-        this.fabSave = findViewById(R.id.fab_add_save);
-        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
         this.ivImage = findViewById(R.id.iv_add_photo);
-        this.fabCamera = findViewById(R.id.fab_add_camera);
         this.etTags = findViewById(R.id.et_add_tags);
-        this.fabArchive = findViewById(R.id.fab_archive);
+
+        this.tvArchive = findViewById(R.id.tv_add_archive);
+        this.tvAddPhoto = findViewById(R.id.tv_add_photo);
+        this.tvDeletePhoto = findViewById(R.id.tv_add_remove_photo);
+        this.fabSave = findViewById(R.id.fab_add_save);
+
+/*        this.fabCamera = findViewById(R.id.fab_add_camera);
+        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
+        this.fabArchive = findViewById(R.id.fab_archive);*/
 
         forEdit = getIntent().getBooleanExtra("FOR_EDIT", false);
         if (forEdit) {
@@ -155,11 +165,34 @@ public class AddPostActivity extends AppCompatActivity {
             finish();
         });
 
-        fabCamera.setOnClickListener(view -> {
+/*        fabCamera.setOnClickListener(view -> {
+            dispatchTakePictureIntent();
+        });*/
+
+        tvAddPhoto.setOnClickListener(view -> {
             dispatchTakePictureIntent();
         });
 
-        fabRemovePhoto.setOnClickListener(view -> {
+/*        fabRemovePhoto.setOnClickListener(view -> {
+            if (photoFile == null) {
+                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            File fdelete = new File(photoFile.getAbsolutePath());
+            ivImage.setImageBitmap(null);
+            if (fdelete.exists()) {
+                if (!fdelete.delete()) {
+                    Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+            }
+
+            mSelectedImagePath = null;
+        });*/
+
+        tvDeletePhoto.setOnClickListener(view -> {
             if (photoFile == null) {
                 Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
                 return;
@@ -178,7 +211,17 @@ public class AddPostActivity extends AppCompatActivity {
             mSelectedImagePath = null;
         });
 
-        fabArchive.setOnClickListener(view -> {
+/*        fabArchive.setOnClickListener(view -> {
+            mEntry.setArchived(true);
+            EntryLab.get(this).updateEntry(mEntry);
+
+            Intent returnIntent = getIntent();
+            returnIntent.putExtra("RETURN_ENTRY", mEntry);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        });*/
+
+        tvArchive.setOnClickListener(view -> {
             mEntry.setArchived(true);
             EntryLab.get(this).updateEntry(mEntry);
 
@@ -218,8 +261,10 @@ public class AddPostActivity extends AppCompatActivity {
 
                 mSelectedImagePath = null;
                 return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 
     @Override
@@ -300,6 +345,7 @@ public class AddPostActivity extends AppCompatActivity {
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());
         ivImage.setImageBitmap(takenImage);
 
-        fabArchive.setVisibility(View.VISIBLE);
+        /*fabArchive.setVisibility(View.VISIBLE);*/
+        tvArchive.setVisibility(View.VISIBLE);
     }
 }

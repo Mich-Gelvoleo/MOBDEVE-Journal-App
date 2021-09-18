@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null">
+    android:background="@null"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/iv_add_photo"
@@ -97,7 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_add_tags" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,6 +106,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:tint="@color/white"
+        android:visibility="gone"
         app:backgroundTint="#BE1600"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +120,7 @@
         android:layout_marginBottom="6dp"
         android:clickable="true"
         android:tint="@color/white"
+        android:visibility="gone"
         app:backgroundTint="#BE1600"
         app:layout_constraintBottom_toTopOf="@+id/fab_add_save"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +135,7 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
+        android:visibility="gone"
         app:backgroundTint="#BE1600"
         app:layout_constraintBottom_toTopOf="@+id/fab_add_camera"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +143,6 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_archive"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -147,20 +150,30 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
+        android:visibility="gone"
         app:backgroundTint="#BE1600"
         app:layout_constraintBottom_toTopOf="@+id/fab_remove_photo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_archive" />
+        app:srcCompat="@drawable/ic_archive" />-->
 
-    <!--<androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="120dp"
         android:theme="@style/AppBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_save"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:src="@drawable/ic_save"
+            app:backgroundTint="@color/white"
+            app:layout_anchor="@id/bottomAppBar"
+            app:tint="#BE1600" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"
@@ -168,17 +181,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@menu/menu_bottomappbar"
-            android:backgroundTint="@color/white" />
+            android:backgroundTint="#BE1600"
+            app:fabAlignmentMode="end"
+            app:labelVisibilityMode="labeled">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_save"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_save"
-            app:layout_anchor="@id/bottomAppBar" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/tv_add_archive"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableTop="@drawable/ic_archive"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout> -->
+                <TextView
+                    android:id="@+id/tv_add_photo"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="18dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_add_archive"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:drawableTop="@drawable/ic_cam"/>
+
+                <TextView
+                    android:id="@+id/tv_add_remove_photo"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_add_photo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:drawableTop="@drawable/ic_delete_photo"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
