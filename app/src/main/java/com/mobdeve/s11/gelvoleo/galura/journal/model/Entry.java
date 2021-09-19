@@ -24,7 +24,7 @@ public class Entry implements Serializable, Comparable<Entry> {
 
     private String tags = "";
 
-    private String location;
+    private String location = "";
 
     public Entry(String title, String caption) {
         this.id = UUID.randomUUID();

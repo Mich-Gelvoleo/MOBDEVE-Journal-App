@@ -70,6 +70,7 @@ public class AddPostActivity extends AppCompatActivity {
     private File photoFile = null;
 
     private boolean forEdit = false;
+    private boolean forDelete = false;
     private Entry mEntry = null;
 
     @Override
@@ -154,6 +155,22 @@ public class AddPostActivity extends AppCompatActivity {
                 return;
             }
 
+            if (forDelete) {
+                File fdelete = new File(photoFile.getAbsolutePath());
+
+                if (fdelete.exists()) {
+                    if (!fdelete.delete()) {
+                        Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
+                }
+
+                mSelectedImagePath = null;
+                photoFile = null;
+                forDelete = false;
+            }
+
             if (photoFile != null) {
                 galleryAddPic();
             }
@@ -192,61 +209,18 @@ public class AddPostActivity extends AppCompatActivity {
             finish();
         });
 
-/*        fabCamera.setOnClickListener(view -> {
-            dispatchTakePictureIntent();
-        });*/
-
         tvAddPhoto.setOnClickListener(view -> {
             dispatchTakePictureIntent();
         });
 
-/*        fabRemovePhoto.setOnClickListener(view -> {
-            if (photoFile == null) {
-                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            File fdelete = new File(photoFile.getAbsolutePath());
-            ivImage.setImageBitmap(null);
-            if (fdelete.exists()) {
-                if (!fdelete.delete()) {
-                    Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
-            }
-
-            mSelectedImagePath = null;
-        });*/
-
         tvDeletePhoto.setOnClickListener(view -> {
             if (photoFile == null) {
                 Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
-                return;
             }
 
-            File fdelete = new File(photoFile.getAbsolutePath());
             ivImage.setImageBitmap(null);
-            if (fdelete.exists()) {
-                if (!fdelete.delete()) {
-                    Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
-            }
-
-            mSelectedImagePath = null;
+            forDelete = true;
         });
-
-/*        fabArchive.setOnClickListener(view -> {
-            mEntry.setArchived(true);
-            EntryLab.get(this).updateEntry(mEntry);
-
-            Intent returnIntent = getIntent();
-            returnIntent.putExtra("RETURN_ENTRY", mEntry);
-            setResult(RESULT_OK, returnIntent);
-            finish();
-        });*/
 
         tvArchive.setOnClickListener(view -> {
             mEntry.setArchived(true);
@@ -258,12 +232,6 @@ public class AddPostActivity extends AppCompatActivity {
             finish();
         });
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_bottomappbar, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -276,17 +244,8 @@ public class AddPostActivity extends AppCompatActivity {
                     return true;
                 }
 
-                File fdelete = new File(photoFile.getAbsolutePath());
-                ivImage.setImageBitmap(null);
-                if (fdelete.exists()) {
-                    if (!fdelete.delete()) {
-                        Toast.makeText(AddPostActivity.this, "Error.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(AddPostActivity.this, "No image to delete.", Toast.LENGTH_SHORT).show();
-                }
 
-                mSelectedImagePath = null;
+                ivImage.setImageBitmap(null);
                 return true;
 
             default:
@@ -302,9 +261,9 @@ public class AddPostActivity extends AppCompatActivity {
 
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a previe
                 ivImage.setImageBitmap(takenImage);
+
+                forDelete = false;
             }
         }
     }
