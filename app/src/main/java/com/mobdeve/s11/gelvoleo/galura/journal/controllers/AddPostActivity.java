@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ public class AddPostActivity extends AppCompatActivity {
     private EditText etTags;
     private ImageView ivImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private AutoCompleteTextView actvLocation;
 
     private TextView tvArchive;
     private TextView tvAddPhoto;
@@ -78,6 +80,7 @@ public class AddPostActivity extends AppCompatActivity {
         this.etCaption = findViewById(R.id.et_add_caption);
         this.ivImage = findViewById(R.id.iv_add_photo);
         this.etTags = findViewById(R.id.et_add_tags);
+        this.actvLocation = findViewById(R.id.actv_add_location);
 
         this.tvArchive = findViewById(R.id.tv_add_archive);
         this.tvAddPhoto = findViewById(R.id.tv_add_photo);
@@ -123,6 +126,8 @@ public class AddPostActivity extends AppCompatActivity {
                 tvDate.setText(date);
             }
         };
+
+        actvLocation.setAdapter(new PlaceAutoSuggestAdapter(this, android.R.layout.simple_list_item_1));
 
         this.fabSave.setOnClickListener(view -> {
 
@@ -340,7 +345,9 @@ public class AddPostActivity extends AppCompatActivity {
         etCaption.setText(mEntry.getCaption());
         etTags.setText(mEntry.getTags());
 
-        photoFile = new File(mEntry.getFilename());
+        if(mEntry.getFilename() != null) {
+            photoFile = new File(mEntry.getFilename());
+        }
 
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());
         ivImage.setImageBitmap(takenImage);

@@ -82,23 +82,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_add_tags"
         app:layout_constraintTop_toBottomOf="@+id/et_add_title" />
 
-    <EditText
-        android:id="@+id/et_add_caption"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        android:ems="10"
-        android:fontFamily="@font/oswald_light"
-        android:hint="Let's get typing!"
-        android:inputType="textMultiLine|text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_add_tags" />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -156,6 +140,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_archive" />-->
 
+    <ImageView
+        android:id="@+id/iv_add_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_pin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add_tags" />
+
+    <EditText
+        android:id="@+id/et_add_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="Let's get typing!"
+        android:inputType="textMultiLine|text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actv_add_location" />
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_add_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:fontFamily="@font/oswald_light"
+        android:hint="Search your location :D"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_add_pin"
+        app:layout_constraintTop_toBottomOf="@+id/et_add_tags" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
@@ -205,7 +229,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_add_photo"
@@ -215,14 +239,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
+                    android:drawableTop="@drawable/ic_cam"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="18dp"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_add_archive"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:drawableTop="@drawable/ic_cam"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_add_remove_photo"
@@ -232,14 +256,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
+                    android:drawableTop="@drawable/ic_delete_photo"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingTop="16dp"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_add_photo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:drawableTop="@drawable/ic_delete_photo"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
