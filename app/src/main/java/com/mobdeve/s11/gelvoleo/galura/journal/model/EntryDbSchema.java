@@ -13,6 +13,7 @@ public class EntryDbSchema {
             public static final String FILENAME = "filename";
             public static final String TAGS = "tags";
             public static final String LOCATION = "location";
+            public static final String ARCHIVED_DATE = "archived_date";
         }
     }
 }

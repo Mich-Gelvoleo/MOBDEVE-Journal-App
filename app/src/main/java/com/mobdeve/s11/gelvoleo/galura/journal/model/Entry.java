@@ -14,6 +14,16 @@ public class Entry implements Serializable, Comparable<Entry> {
     private boolean archived;
     private String filename;
 
+    public Date getArchivedDate() {
+        return archivedDate;
+    }
+
+    public void setArchivedDate(Date archivedDate) {
+        this.archivedDate = archivedDate;
+    }
+
+    private Date archivedDate = new Date();
+
     public String getTags() {
         return tags;
     }

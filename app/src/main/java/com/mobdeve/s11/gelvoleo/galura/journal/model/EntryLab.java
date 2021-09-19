@@ -61,6 +61,14 @@ public class EntryLab {
         return entries;
     }
 
+    public void deleteArchivedOnTime() {
+        database.delete(
+                EntryDbSchema.EntryTable.NAME,
+                "archived = 1 AND archived_date <= date('now', '-2 minutes')",
+                null
+        );
+    }
+
     public Entry getEntry(UUID id) {
         EntryCursorWrapper cursor = queryEntries(
                 EntryDbSchema.EntryTable.Cols.UUID + " = ?",
@@ -114,6 +122,7 @@ public class EntryLab {
         values.put(Cols.FILENAME, entry.getFilename());
         values.put(Cols.TAGS, entry.getTags());
         values.put(Cols.LOCATION, entry.getLocation());
+        values.put(Cols.ARCHIVED_DATE, entry.getArchivedDate().getTime());
 
         return values;
     }

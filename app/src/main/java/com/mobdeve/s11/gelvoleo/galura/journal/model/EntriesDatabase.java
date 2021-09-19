@@ -15,6 +15,7 @@ public class EntriesDatabase extends SQLiteOpenHelper {
 
     public EntriesDatabase(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
+//        context.deleteDatabase(DATABASE_NAME);
     }
 
     @Override
@@ -28,6 +29,7 @@ public class EntriesDatabase extends SQLiteOpenHelper {
                 EntryTable.Cols.FILENAME + ", " +
                 EntryTable.Cols.ARCHIVED + ", " +
                 EntryTable.Cols.TAGS + ", " +
+                EntryTable.Cols.ARCHIVED_DATE + ", " +
                 EntryTable.Cols.LOCATION +
                 ")"
         );
@@ -35,6 +37,5 @@ public class EntriesDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
     }
 }

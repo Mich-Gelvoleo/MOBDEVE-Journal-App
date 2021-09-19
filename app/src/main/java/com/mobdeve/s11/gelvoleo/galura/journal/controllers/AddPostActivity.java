@@ -77,10 +77,6 @@ public class AddPostActivity extends AppCompatActivity {
     private TextView tvDeletePhoto;
     private FloatingActionButton fabSave;
 
-/*  private FloatingActionButton fabArchive;
-    private FloatingActionButton fabRemovePhoto;
-    private FloatingActionButton fabCamera;*/
-
     private Date mDatePicked = new Date();
     private String mSelectedImagePath = null;
     private String locationChosen = null;
@@ -110,10 +106,6 @@ public class AddPostActivity extends AppCompatActivity {
         this.fabSave = findViewById(R.id.fab_add_save);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-/*        this.fabCamera = findViewById(R.id.fab_add_camera);
-        this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
-        this.fabArchive = findViewById(R.id.fab_archive);*/
 
         forEdit = getIntent().getBooleanExtra("FOR_EDIT", false);
         if (forEdit) {
@@ -269,6 +261,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         tvArchive.setOnClickListener(view -> {
             mEntry.setArchived(true);
+            mEntry.setArchivedDate(new Date());
             EntryLab.get(this).updateEntry(mEntry);
 
             Intent returnIntent = getIntent();
