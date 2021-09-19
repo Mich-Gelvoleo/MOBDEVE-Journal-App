@@ -1,12 +1,18 @@
 package com.mobdeve.s11.gelvoleo.galura.journal.controllers;
 
+import android.Manifest;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.nfc.FormatException;
 import android.os.Bundle;
@@ -24,20 +30,30 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.EntryLab;
 import com.mobdeve.s11.gelvoleo.galura.journal.model.Entry;
 import com.mobdeve.s11.gelvoleo.galura.journal.R;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class AddPostActivity extends AppCompatActivity {
     private static final String TAG = "AddPostActivity";
@@ -54,6 +70,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     private AutoCompleteTextView actvLocation;
     private PlaceAutoSuggestAdapter placeAdapter;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     private TextView tvArchive;
     private TextView tvAddPhoto;
@@ -90,6 +107,8 @@ public class AddPostActivity extends AppCompatActivity {
         this.tvAddPhoto = findViewById(R.id.tv_add_photo);
         this.tvDeletePhoto = findViewById(R.id.tv_add_remove_photo);
         this.fabSave = findViewById(R.id.fab_add_save);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 /*        this.fabCamera = findViewById(R.id.fab_add_camera);
         this.fabRemovePhoto = findViewById(R.id.fab_remove_photo);
@@ -136,7 +155,9 @@ public class AddPostActivity extends AppCompatActivity {
         actvLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                locationChosen = parent.getItemAtPosition(position).toString();
+                String temp;
+                temp = parent.getItemAtPosition(position).toString();
+                locationChosen = temp;
                 Toast.makeText(parent.getContext(), "Selected: " + locationChosen, Toast.LENGTH_SHORT).show();
                 actvLocation.setText(locationChosen);
             }
@@ -146,6 +167,7 @@ public class AddPostActivity extends AppCompatActivity {
 
             }
         });
+
 
         this.fabSave.setOnClickListener(view -> {
 
@@ -159,6 +181,29 @@ public class AddPostActivity extends AppCompatActivity {
             }
 
             mSelectedImagePath = (photoFile == null) ? null : photoFile.getAbsolutePath();
+
+            if(locationChosen==null) {
+                if (ActivityCompat.checkSelfPermission(AddPostActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Location> task) {
+                            Location location = task.getResult();
+                            if (location != null) {
+                                try {
+                                    Geocoder geocoder = new Geocoder(AddPostActivity.this, Locale.getDefault());
+                                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                    locationChosen = addresses.get(0).getLocality();
+                                    actvLocation.setText(locationChosen);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    ActivityCompat.requestPermissions(AddPostActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
+            }
 
 
             if (forEdit) {
