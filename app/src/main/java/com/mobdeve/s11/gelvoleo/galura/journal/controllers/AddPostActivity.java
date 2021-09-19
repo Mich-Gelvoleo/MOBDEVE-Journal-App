@@ -184,7 +184,7 @@ public class AddPostActivity extends AppCompatActivity {
                 mEntry.setDate(mDatePicked);
                 mEntry.setFilename(mSelectedImagePath);
                 mEntry.setTags(etTags.getText().toString());
-                mEntry.setLocation(locationChosen);
+                mEntry.setLocation(actvLocation.getText().toString());
 
                 EntryLab.get(this).updateEntry(mEntry);
 
