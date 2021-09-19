@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -50,7 +51,9 @@ public class AddPostActivity extends AppCompatActivity {
     private EditText etTags;
     private ImageView ivImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
     private AutoCompleteTextView actvLocation;
+    private PlaceAutoSuggestAdapter placeAdapter;
 
     private TextView tvArchive;
     private TextView tvAddPhoto;
@@ -63,6 +66,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     private Date mDatePicked = new Date();
     private String mSelectedImagePath = null;
+    private String locationChosen = null;
     private File photoFile = null;
 
     private boolean forEdit = false;
@@ -127,7 +131,21 @@ public class AddPostActivity extends AppCompatActivity {
             }
         };
 
-        actvLocation.setAdapter(new PlaceAutoSuggestAdapter(this, android.R.layout.simple_list_item_1));
+        placeAdapter = new PlaceAutoSuggestAdapter(this, android.R.layout.simple_list_item_1);
+        actvLocation.setAdapter(placeAdapter);
+        actvLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                locationChosen = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Selected: " + locationChosen, Toast.LENGTH_SHORT).show();
+                actvLocation.setText(locationChosen);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         this.fabSave.setOnClickListener(view -> {
 
@@ -149,6 +167,7 @@ public class AddPostActivity extends AppCompatActivity {
                 mEntry.setDate(mDatePicked);
                 mEntry.setFilename(mSelectedImagePath);
                 mEntry.setTags(etTags.getText().toString());
+                mEntry.setLocation(locationChosen);
 
                 EntryLab.get(this).updateEntry(mEntry);
 
@@ -161,7 +180,10 @@ public class AddPostActivity extends AppCompatActivity {
                         etCaption.getText().toString(),
                         mDatePicked,
                         mSelectedImagePath,
-                        etTags.getText().toString()
+                        etTags.getText().toString(),
+
+                        //Delete if flops
+                        actvLocation.getText().toString()
                 );
 
                 EntryLab.get(this).addEntry(entry);

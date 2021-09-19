@@ -113,6 +113,7 @@ public class EntryLab {
         values.put(Cols.ARCHIVED, entry.isArchived() ? 1 : 0);
         values.put(Cols.FILENAME, entry.getFilename());
         values.put(Cols.TAGS, entry.getTags());
+        values.put(Cols.LOCATION, entry.getLocation());
 
         return values;
     }

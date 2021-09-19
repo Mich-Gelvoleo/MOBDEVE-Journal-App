@@ -27,7 +27,8 @@ public class EntriesDatabase extends SQLiteOpenHelper {
                 EntryTable.Cols.DATE + ", " +
                 EntryTable.Cols.FILENAME + ", " +
                 EntryTable.Cols.ARCHIVED + ", " +
-                EntryTable.Cols.TAGS +
+                EntryTable.Cols.TAGS + ", " +
+                EntryTable.Cols.LOCATION +
                 ")"
         );
     }

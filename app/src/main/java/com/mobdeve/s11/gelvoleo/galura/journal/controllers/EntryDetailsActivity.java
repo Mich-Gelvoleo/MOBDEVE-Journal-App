@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,9 @@ public class EntryDetailsActivity extends AppCompatActivity {
     private FloatingActionButton fabEdit;
     private FloatingActionButton fabDeletePermanently;
     private FloatingActionButton fabRestore;
+
+    //Delete if it flops
+    private TextView tvLocation;
 
     private Entry mEntry;
 
@@ -88,6 +92,9 @@ public class EntryDetailsActivity extends AppCompatActivity {
 
         this.tvTags = findViewById(R.id.tv_view_tags);
         tvTags.setText(mEntry.getTags());
+
+        this.tvLocation = findViewById(R.id.tv_view_location);
+        tvLocation.setText(mEntry.getLocation());
 
         this.ivEntryImage = findViewById(R.id.iv_view_photo);
         Bitmap takenImage = BitmapFactory.decodeFile(mEntry.getFilename());

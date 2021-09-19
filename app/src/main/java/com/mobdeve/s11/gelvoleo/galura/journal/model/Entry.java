@@ -24,6 +24,8 @@ public class Entry implements Serializable, Comparable<Entry> {
 
     private String tags = "";
 
+    private String location;
+
     public Entry(String title, String caption) {
         this.id = UUID.randomUUID();
         this.title = title;
@@ -50,7 +52,7 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.filename = filename;
     }
 
-    public Entry(String title, String caption, Date date, String filename, String tags){
+    public Entry(String title, String caption, Date date, String filename, String tags, String location){
         this.id = UUID.randomUUID();
         this.title = title;
         this.caption = caption;
@@ -58,6 +60,9 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.archived = false;
         this.filename = filename;
         this.tags = tags;
+
+        //Delete if it flops
+        this.location = location;
     }
 
     public Entry(UUID uuid) {
@@ -107,6 +112,14 @@ public class Entry implements Serializable, Comparable<Entry> {
 
     public String getCaption(){
         return this.caption;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
+    public String getLocation(){
+        return this.location;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class PlaceAutoSuggestAdapter extends ArrayAdapter implements Filterable 
     int resource;
     Context context;
 
-    PlacesAPI placesAPI =new PlacesAPI();
+    PlacesAPI placesAPI = new PlacesAPI();
 
     public PlaceAutoSuggestAdapter(Context context,int resId){
         super(context,resId);
