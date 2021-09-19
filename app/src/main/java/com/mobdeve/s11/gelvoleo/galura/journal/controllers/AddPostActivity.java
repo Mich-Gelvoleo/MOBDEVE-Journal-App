@@ -191,7 +191,7 @@ public class AddPostActivity extends AppCompatActivity {
 
             mSelectedImagePath = (photoFile == null) ? null : photoFile.getAbsolutePath();
 
-            if(locationChosen==null) {
+/*            if(locationChosen==null) {
                 if (ActivityCompat.checkSelfPermission(AddPostActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                         @Override
@@ -212,7 +212,7 @@ public class AddPostActivity extends AppCompatActivity {
                 } else {
                     ActivityCompat.requestPermissions(AddPostActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                 }
-            }
+            }*/
 
 
             if (forEdit) {
