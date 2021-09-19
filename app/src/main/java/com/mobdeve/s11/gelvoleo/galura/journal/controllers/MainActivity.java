@@ -81,6 +81,19 @@ public class MainActivity extends AppCompatActivity {
                 this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                 this.rvEntries.setAdapter(entriesAdapter);
                 return true;
+
+            case R.id.menu_locationAZ:
+                Collections.sort(entries, Entry.Comparators.locationAZ);
+                this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                this.rvEntries.setAdapter(entriesAdapter);
+                return true;
+
+            case R.id.menu_locationZA:
+                Collections.sort(entries, Entry.Comparators.locationZA);
+                this.rvEntries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                this.rvEntries.setAdapter(entriesAdapter);
+                return true;
+
             case R.id.archive:
                 viewArchived = (viewArchived == 1) ? 0 : 1;
 

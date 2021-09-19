@@ -23,6 +23,7 @@ public class EntriesViewHolder extends RecyclerView.ViewHolder {
     private TextView tvDate;
     private TextView tvTitle;
     private TextView tvCaption;
+    private TextView tvLocation;
 
     public EntriesViewHolder(@NonNull @NotNull View itemView){
         super(itemView);
@@ -30,6 +31,7 @@ public class EntriesViewHolder extends RecyclerView.ViewHolder {
         this.tvDate = itemView.findViewById(R.id.tv_entry_date);
         this.tvTitle = itemView.findViewById(R.id.tv_entry_title);
         this.tvCaption = itemView.findViewById(R.id.tv_entry_caption);
+        this.tvLocation = itemView.findViewById(R.id.tv_entry_location);
 
         itemView.setOnClickListener(view ->{
             Intent intent = new Intent(itemView.getContext(), EntryDetailsActivity.class);
@@ -44,6 +46,7 @@ public class EntriesViewHolder extends RecyclerView.ViewHolder {
         mEntry = entry;
         tvTitle.setText(mEntry.getTitle());
         tvCaption.setText(mEntry.getCaption());
+        tvLocation.setText(mEntry.getLocation());
 
         Date date = mEntry.getDate();
         String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date).toUpperCase();

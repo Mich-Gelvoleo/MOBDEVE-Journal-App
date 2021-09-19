@@ -159,5 +159,19 @@ public class Entry implements Serializable, Comparable<Entry> {
                 }
             }
         };
+
+        public static Comparator<Entry> locationAZ = new Comparator<Entry>() {
+            @Override
+            public int compare(Entry e1, Entry e2) {
+                return e1.getLocation().compareTo(e2.getLocation());
+            }
+        };
+
+        public static Comparator<Entry> locationZA = new Comparator<Entry>() {
+            @Override
+            public int compare(Entry e1, Entry e2) {
+                return e2.getLocation().compareTo(e1.getLocation());
+            }
+        };
     }
 }
